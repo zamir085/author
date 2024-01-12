@@ -6,6 +6,7 @@ app.use(cors());
 const mongoose = require("mongoose");
 const multer = require("multer");
 const path = require("path");
+const fs = require('fs').promises;
 
 const AutorSchema = new mongoose.Schema({
   fullName: String,
@@ -23,7 +24,7 @@ var storage = multer.diskStorage({
     cb(null, 'uploads/')
   },
   filename: function (req, file, cb) {
-    cb(null,Date.now() + file.originalname) 
+    cb(null, Date.now() + file.originalname) 
   }
 })
 var upload = multer({ storage: storage })
@@ -34,7 +35,7 @@ app.get("/api/autors", async (req, res) => {
   
   if (username) {
     const filteredUsers = users.filter((x) =>
-      x.username.toLowerCase().trim().includes(username.toLowerCase().trim())
+      x.fullName.toLowerCase().trim().includes(username.toLowerCase().trim())
     );
     res.send(filteredUsers);
   } else {
@@ -64,9 +65,7 @@ app.get("/api/autors/imgURLs", async (req, res) => {
 app.post("/api/autors", upload.single("imgFile"), async (req, res) => {
   try {
     const { fullName, birthYear, bio, genre, gender, isDead } = req.body;
-
-    const imgURL = `/uploads/${req.file.filename}`;
-
+    const imgURL = `http://localhost:8080/uploads/${req.file.filename}`;
     const newUser = new AutorModel({
       fullName,
       birthYear,
@@ -77,13 +76,13 @@ app.post("/api/autors", upload.single("imgFile"), async (req, res) => {
       imgURL,
     });
     await newUser.save();
-
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.patch("/api/autors/:id", async (req, res) => {
   const { id } = req.params;

@@ -43,12 +43,13 @@ const AutorDetails: React.FC<AutorDetailsProps> = ({ params }) => {
     };
 
     fetchData();
-  }, [setAutor])
+  }, [params,router])
 
   if (!autor) {
     return <div>Loading...</div>;
   }
 
+  console.log(autor)
   return (
     <div>
       <h1 style={{textAlign:'center',margin:'20px 0'}}>Autor Details</h1>
