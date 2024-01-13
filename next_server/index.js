@@ -28,7 +28,7 @@ const BookSchema = new mongoose.Schema({
   desc: String,
   bookFile: String,
 });
-const BookModel = mongoose.model("Book", AutorSchema);
+const BookModel = mongoose.model("Book", BookSchema);
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
