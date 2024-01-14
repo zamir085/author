@@ -145,8 +145,8 @@ app.post(
   async (req, res) => {
     try {
       const { authorId, name, year, genre, desc } = req.body;
-      const coverImg = `http://localhost:8080/bookCovers/${req.files["coverImg"][0].filename}`;
-      const bookFile = `http://localhost:8080/bookFiles/${req.files["bookFile"][0].filename}`;
+      const coverImg = `http://localhost:8080/bookCovers/${req.file.filename}`;
+      const bookFile = `http://localhost:8080/bookFiles/${req.file.filename}`;
       const newBook = new BookModel({
         authorId,
         coverImg,

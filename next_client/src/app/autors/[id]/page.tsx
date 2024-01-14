@@ -49,7 +49,6 @@ const AutorDetails: React.FC<AutorDetailsProps> = ({ params }) => {
     return <div>Loading...</div>;
   }
 
-  console.log(autor)
   return (
     <div>
       <h1 style={{textAlign:'center',margin:'20px 0'}}>Autor Details</h1>
@@ -62,6 +61,8 @@ const AutorDetails: React.FC<AutorDetailsProps> = ({ params }) => {
         <p>{`Gender: ${autor.gender}`}</p>
         <p>{`Age: ${new Date().getFullYear() - autor.birthYear}`}</p>
         <p>{`Bio: ${autor.bio}`}</p>
+        <Button type='primary' style={{backgroundColor:'green'}}  onClick={() => router.push(`/autors/${autor._id}/edit`)}>Edit</Button>
+        <Button type='primary' onClick={() => router.push(`/autors/${autor._id}/book`)}>Add Book</Button>
         </div>
       </div>
     </div>

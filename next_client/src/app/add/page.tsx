@@ -83,67 +83,67 @@ const Add = () => {
 
   return (
     <div>
-      <h2 style={{margin:'20px 0',textAlign:'center'}}>Add Author</h2>
+      <h2 style={{ margin: '20px 0', textAlign: 'center' }}>Add Author</h2>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-  {({ setFieldValue }) => (
-    <Form>
-      <Row justify="center" align="middle">
-        <Col span={8}>
-          <div style={{ marginBottom: '16px' }}>
-            <label>Full Name:</label>
-            <Field name="fullName" as={Input} />
-          </div>
+        {({ setFieldValue }) => (
+          <Form>
+            <Row justify="center" align="middle">
+              <Col span={8}>
+                <div style={{ marginBottom: '16px' }}>
+                  <label>Full Name:</label>
+                  <Field name="fullName" as={Input} />
+                </div>
 
-          <div style={{ marginBottom: '16px' }}>
-            <label>Birth Year:</label>
-            <Field name="birthYear" type="number" as={Input} />
-          </div>
+                <div style={{ marginBottom: '16px' }}>
+                  <label>Birth Year:</label>
+                  <Field name="birthYear" type="number" as={Input} />
+                </div>
 
-          <div style={{ marginBottom: '16px' }}>
-            <label>Genre:</label>
-            <Field name="genre" as={Input} />
-          </div>
+                <div style={{ marginBottom: '16px' }}>
+                  <label>Genre:</label>
+                  <Field name="genre" as={Input} />
+                </div>
 
-          <div style={{ marginBottom: '16px' }}>
-            <label>Bio:</label>
-            <Field name="bio" as="textarea" style={{ width: '100%' }} />
-          </div>
+                <div style={{ marginBottom: '16px' }}>
+                  <label>Bio:</label>
+                  <Field name="bio" as="textarea" style={{ width: '100%' }} />
+                </div>
 
-          <div style={{ marginBottom: '16px' }}>
-            <label>Is Dead:</label>
-            <Field name="isDead" type="checkbox" as={Checkbox} />
-          </div>
+                <div style={{ marginBottom: '16px' }}>
+                  <label>Is Dead:</label>
+                  <Field name="isDead" type="checkbox" as={Checkbox} />
+                </div>
 
-          <div style={{ marginBottom: '16px' }}>
-            <label>Gender:</label>
-            <Field name="gender" as={Select} style={{ width: '100%' }}>
-              <Option value="male">Male</Option>
-              <Option value="female">Female</Option>
-            </Field>
-          </div>
-          <div style={{ marginBottom: '16px' }}>
-            <label>Image URL:</label>
-            <input
-              type="file"
-              name="imgURL"
-              id="imgURL"
-              accept="image/*"
-              onChange={handleFileChange}
-            />
-            {file && <img src={URL.createObjectURL(file)} alt="Preview" style={{ marginTop: '10px', maxWidth: '100%' }} />}
-            <ErrorMessage name="imgURL" component="div" />
-          </div>
+                <div style={{ marginBottom: '16px' }}>
+                  <label>Gender:</label>
+                  <Field name="gender" as={Select} style={{ width: '100%' }}>
+                    <Option value="male">Male</Option>
+                    <Option value="female">Female</Option>
+                  </Field>
+                </div>
+                <div style={{ marginBottom: '16px' }}>
+                  <label>Image URL:</label>
+                  <input
+                    type="file"
+                    name="imgURL"
+                    id="imgURL"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                  />
+                  {file && <img src={URL.createObjectURL(file)} alt="Preview" style={{ marginTop: '10px', maxWidth: '50%' }} />}
+                  <ErrorMessage name="imgURL" component="div" />
+                </div>
 
-          <div style={{ marginBottom: '16px' }}>
-            <Button type="primary" htmlType="submit">
-              Add Author
-            </Button>
-          </div>
-        </Col>
-      </Row>
-    </Form>
-  )}
-</Formik>
+                <div style={{ marginBottom: '16px' }}>
+                  <Button type="primary" htmlType="submit">
+                    Add Author
+                  </Button>
+                </div>
+              </Col>
+            </Row>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
