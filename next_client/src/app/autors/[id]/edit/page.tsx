@@ -81,7 +81,7 @@ const Edit: React.FC<AutorDetailsProps> = ({ params }) => {
         await updateAutor(_id, updatedData);
       }
   
-      router.push('..');
+      router.push(`/autors/${_id}`);
     message.success('Author updated successfully');
   } catch (error) {
     console.error('Error updating author:', error);

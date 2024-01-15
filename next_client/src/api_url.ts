@@ -108,9 +108,20 @@ export const getBooksByAuthor = async (authorId: string): Promise<BookType[]> =>
     const response = await axios.get<BookType[]>(`${API_URL}/books/author/${authorId}`);
     return response.data;
   } catch (error) {
-    throw new Error('Yaziciya uygun kitablar tapilmadi.');
+    if (axios.isAxiosError(error)) {
+      if (error.response && error.response.status === 404) {
+        console.error('Author books not found:', error.response.data);
+        throw new Error('Yaziciya uygun kitablar tapilmadi.');
+      } else {
+        console.error('Error fetching author books:', error.message);
+        throw new Error('Kitablar alinmadi.');
+      }
+    }
+    console.error('Unexpected error:', error);
+    throw new Error('Beklenmeyen xeta.');
   }
 };
+
 
 export const postBook = async (formData: FormData): Promise<BookType> => {
   try {

@@ -145,8 +145,8 @@ app.post(
   async (req, res) => {
     try {
       const { authorId, name, year, genre, desc } = req.body;
-      const coverImg = `http://localhost:8080/bookCovers/${req.file.filename}`;
-      const bookFile = `http://localhost:8080/bookFiles/${req.file.filename}`;
+      const coverImg = `http://localhost:8080/bookCovers/${req.files['coverImg'][0].filename}`;
+      const bookFile = `http://localhost:8080/bookFiles/${req.files['bookFile'][0].filename}`;
       const newBook = new BookModel({
         authorId,
         coverImg,
@@ -165,6 +165,7 @@ app.post(
   }
 );
 
+
 app.get("/api/books", async (req, res) => {
   try {
     const books = await BookModel.find({});
@@ -174,11 +175,23 @@ app.get("/api/books", async (req, res) => {
   }
 });
 
-app.get("/api/books", async (req, res) => {
-  const { id } = req.params;
-  const author_book = await BookModel.find({ author: id });
-  res.send(author_book);
-})
+app.get("/api/books/author/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const author_books = await BookModel.find({ authorId: id });
+
+    if (!author_books || author_books.length === 0) {
+      return res.status(404).json({ error: 'Author books not found' });
+    }
+
+    res.json(author_books);
+  } catch (error) {
+    console.error('Error fetching author books:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 
 app.get("/api/books/:id", async (req, res) => {
   const { id } = req.params;
